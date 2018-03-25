@@ -1,0 +1,75 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
+    defaultConfig {
+        applicationId "com.example.jenny.startexercise"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        useLibrary 'org.apache.http.legacy'
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+}
+
+repositories {
+    jcenter()
+    mavenLocal()
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+    maven {
+        url 'https://maven.google.com/'
+        name 'Google'
+    }
+}
+
+dependencies {
+    implementation 'com.android.support:support-v4:25.4.0'
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile 'com.android.support:cardview-v7:25.3.1'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'com.mcxiaoke.volley:library:1.0.19'
+    compile 'com.google.android.gms:play-services-vision:11.6.2'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:support-annotations:25.3.1'
+    compile 'com.android.support:support-core-utils:25.3.1'
+
+    //Universal image loader
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+
+    //BottomNavigationViewEx library
+    compile 'com.github.ittianyu:BottomNavigationViewEx:1.1.9'
+
+    //upload image library
+    compile 'net.gotev:uploadservice:2.1'
+
+    //pager bullet
+    compile 'com.robohorse.pagerbullet:pagerbullet:1.0.9'
+
+    //facebook
+//    compile 'com.facebook.android:account-kit-sdk:4.+'
+//    compile 'com.facebook.android:facebook-android-sdk:4.+'
+//    compile 'com.facebook.android:facebook-login:[4,5)'
+
+
+}

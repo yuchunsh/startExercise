@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.jenny.startexercise.startExercise.MainActivity">
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/result_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/no_barcode_captured"
+        android:textSize="20sp"
+        android:freezesText="true"
+        android:gravity="center"
+        android:layout_marginTop="150dp"
+        android:textColor="#ADADAD"/>
+
+
+    <Button
+        android:id="@+id/scan_barcode_button"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:text="@string/scan_barcode_button"
+        android:textSize="20sp"
+        android:layout_below="@id/result_textview"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/radius40_orange_button"
+        android:textColor="@color/colorWhite"
+        android:layout_marginTop="220dp" />
+
+    <Button
+        android:id="@+id/skipBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="skip"
+        android:layout_below="@id/scan_barcode_button"
+        android:background="@color/colorAccent"
+        android:textColor="@color/colorWhite"
+        android:layout_marginTop="10dp"
+        android:visibility="invisible"/>
+
+    <Button
+        android:id="@+id/homeBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="home"
+        android:layout_below="@id/skipBtn"
+        android:background="@color/colorAccent"
+        android:textColor="@color/colorWhite"
+        android:layout_marginTop="10dp"
+        android:visibility="visible"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rankBtn"
+        android:text="rank"
+        android:layout_above="@id/scan_barcode_button"
+        android:background="@color/colorAccent"
+        android:textColor="@color/colorWhite"
+        android:layout_marginBottom="40dp"/>
+
+
+</RelativeLayout>
+
+

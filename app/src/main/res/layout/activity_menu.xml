@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.jenny.startexercise.startExercise.MenuActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relLayout1"
+        >
+
+        <ImageView
+            android:id="@+id/ic_white_dumbbell"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="85dp"
+            android:background="@drawable/ic_white_dumbbell"
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:id="@+id/gym"
+            android:text="@string/gym"
+            android:background="@drawable/start_exercise_menu_bottom"
+            android:textSize="26sp"
+            android:textColor="@color/colorWhite"/>
+
+        </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relLayout1">
+
+    <!--<ImageView-->
+        <!--android:id="@+id/ic_white_run"-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:layout_marginLeft="30dp"-->
+        <!--android:layout_marginStart="30dp"-->
+        <!--android:layout_marginTop="350dp"-->
+        <!--android:adjustViewBounds="false"-->
+        <!--android:background="@drawable/ic_white_run" />-->
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+
+            android:layout_marginTop="10dp"
+            android:id="@+id/others"
+            android:text="@string/others"
+            android:background="@drawable/start_exercise_menu_bottom"
+            android:textColor="@color/colorWhite"
+            android:textSize="26sp"
+             />
+    </RelativeLayout>
+
+</RelativeLayout>

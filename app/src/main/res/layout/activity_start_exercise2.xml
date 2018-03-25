@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.jenny.startexercise.startExercise.StartExercise2">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relLayout1">
+
+        <TextView
+            android:id="@+id/exerciseSummary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textSize="40sp"
+            android:background="@drawable/story_box"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/relLayout1">
+
+        <TextView
+            android:id="@+id/postQuestion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="向好友分享今日成果吧！"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"/>
+
+        <Button
+            android:id="@+id/postBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Post"
+            android:layout_below="@+id/postQuestion"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"/>
+
+        <Button
+            android:id="@+id/skipBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="skip"
+            android:layout_toRightOf="@+id/postBtn"
+            android:layout_below="@id/postQuestion"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="15dp"/>
+
+
+
+    </RelativeLayout>
+
+
+
+
+
+</RelativeLayout>
