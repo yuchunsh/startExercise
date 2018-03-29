@@ -151,6 +151,7 @@ public class StartExercise1 extends AppCompatActivity {
 
                 Intent intent = new Intent(StartExercise1.this, StartExercise2.class);
                 intent.putExtra("exerciseDuration", timerValue.getText());
+                intent.putExtra("equipName", ename);
                 startActivity(intent);
             }
         });

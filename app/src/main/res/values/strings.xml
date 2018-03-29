@@ -33,5 +33,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="gym">重訓室</string>
     <string name="others">其他</string>
+    <string name="postbtn">分享</string>
 
 </resources>

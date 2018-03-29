@@ -13,16 +13,17 @@ import android.widget.TextView;
 
 import com.example.jenny.startexercise.R;
 import com.example.jenny.startexercise.models.Photo;
+import com.example.jenny.startexercise.models.Rankitem;
 import com.example.jenny.startexercise.models.User;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by jenny on 2018/3/23.
  */
 
-public class RankListAdapter extends ArrayAdapter<HashMap<String, Long>>{
+public class RankListAdapter extends ArrayAdapter<Rankitem>{
     public interface OnLoadMoreItemsListener{
         void onLoadMoreItems();
     }
@@ -35,7 +36,7 @@ public class RankListAdapter extends ArrayAdapter<HashMap<String, Long>>{
     private Context mContext;
     private String currentUsername = "";
 
-    public RankListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<HashMap<String, Long>> objects) {
+    public RankListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Rankitem> objects) {
         super(context, resource, objects);
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mLayoutResource = resource;
@@ -78,17 +79,20 @@ public class RankListAdapter extends ArrayAdapter<HashMap<String, Long>>{
 
 
         //set the profile image
-//        final ImageLoader imageLoader = ImageLoader.getInstance();
-//        imageLoader.displayImage(getItem(position).getImage_path(), holder.mprofileImage);
+        final ImageLoader imageLoader = ImageLoader.getInstance();
+        imageLoader.displayImage(getItem(position).getPic_path(), holder.mprofileImage);
 
         //set the user name, exercise time,
         Log.d(TAG, "getView: getItem(position): " + getItem(position));
-        for (String key : getItem(position).keySet()){
-            holder.username.setText(key);
-            holder.exerciseTime.setText(String.valueOf(getItem(position).get(key)));
-            holder.rankNumber.setText(String.valueOf(position + 1));
-            break;
-        }
+        holder.username.setText(getItem(position).getUser_name());
+        holder.exerciseTime.setText(String.valueOf(getItem(position).getEnd_time()-getItem(position).getStart_time()));
+        holder.rankNumber.setText(String.valueOf(position + 1));
+//        for (String key : getItem(position).keySet()){
+//            holder.username.setText(key);
+//            holder.exerciseTime.setText(String.valueOf(getItem(position).get(key)));
+//            holder.rankNumber.setText(String.valueOf(position + 1));
+//            break;
+//        }
 
         if(reachedEndOfList(position)){
             loadMoreData();

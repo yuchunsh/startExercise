@@ -7,60 +7,86 @@
     tools:context="com.example.jenny.startexercise.startExercise.StartExercise2">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/relLayout1">
+        android:layout_width="350dp"
+        android:layout_height="320dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/relLayout1"
+        android:background="@drawable/story_box">
 
-        <TextView
-            android:id="@+id/exerciseSummary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="40sp"
-            android:background="@drawable/story_box"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="100dp" />
+        <RelativeLayout
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:background="@drawable/radius10_ffd300_btn"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true">
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/exerciseSummary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="45"
+                android:textSize="73sp"
+                android:textColor="@color/colorWhite"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true" />
+            <TextView
+                android:id="@+id/minute_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="分鐘"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
+                android:layout_toRightOf="@+id/exerciseSummary"
+                android:layout_centerVertical="true"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/relLayout1">
+        </RelativeLayout>
 
-        <TextView
-            android:id="@+id/postQuestion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="向好友分享今日成果吧！"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"/>
+
 
         <Button
             android:id="@+id/postBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Post"
-            android:layout_below="@+id/postQuestion"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"/>
+            android:layout_width="80dp"
+            android:layout_height="48dp"
+            android:background="@drawable/radius5_ffb800_btn"
+            android:text="@string/postbtn"
+            android:textSize="19dp"
+            android:textColor="@color/colorWhite"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"/>
 
-        <Button
-            android:id="@+id/skipBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="skip"
-            android:layout_toRightOf="@+id/postBtn"
-            android:layout_below="@id/postQuestion"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="15dp"/>
+        <TextView
+            android:id="@+id/equip_name"
+            android:layout_width="105dp"
+            android:layout_height="105dp"
+            android:background="@drawable/story_box"
+            android:text="直立式腳踏車"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="#FFD300"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"/>
 
+        <TextView
+            android:id="@+id/place_tv"
+            android:layout_width="91dp"
+            android:layout_height="91dp"
+            android:background="@drawable/story_box"
+            android:text="重訓室"
+            android:textColor="#FFD300"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:layout_toLeftOf="@+id/postBtn"
+            android:layout_marginRight="20dp"/>
 
+        <RelativeLayout
+            android:layout_width="115dp"
+            android:layout_height="115dp"
+            android:background="@drawable/radius5_ffb800_btn">
+
+        </RelativeLayout>
 
     </RelativeLayout>
-
-
-
 
 
 </RelativeLayout>

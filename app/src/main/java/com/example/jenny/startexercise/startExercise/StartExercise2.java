@@ -13,6 +13,7 @@ import com.example.jenny.startexercise.Share.ShareActivity;
 public class StartExercise2 extends AppCompatActivity {
 
     private TextView exerciseSummary;
+    private TextView equipName_tv;
     private Button postBtn;
 
     @Override
@@ -22,9 +23,14 @@ public class StartExercise2 extends AppCompatActivity {
 
         final Intent intent = this.getIntent();
         String exerciseDuration = intent.getStringExtra("exerciseDuration");
+        String equipName = intent.getStringExtra("equipName");
 
         exerciseSummary = (TextView)findViewById(R.id.exerciseSummary);
-        exerciseSummary.setText("本次運動時數為：" + exerciseDuration);
+        exerciseSummary.setText(exerciseDuration);
+
+        equipName_tv = (TextView)findViewById(R.id.equip_name);
+        equipName_tv.setText(equipName);
+
 
         postBtn = (Button)findViewById(R.id.postBtn);
         postBtn.setOnClickListener(new View.OnClickListener() {

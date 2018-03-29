@@ -9,6 +9,8 @@ import android.util.Log;
 
 import com.example.jenny.startexercise.R;
 import com.example.jenny.startexercise.Utils.SectionsPagerAdapter;
+import com.example.jenny.startexercise.Utils.UniversalImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class RankActivity extends AppCompatActivity {
 
@@ -26,6 +28,12 @@ public class RankActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.viewpager_container);
 
         setupViewPager();
+        initImageLoader();
+    }
+
+    private void initImageLoader(){
+        UniversalImageLoader universalImageLoader = new UniversalImageLoader(mContext);
+        ImageLoader.getInstance().init(universalImageLoader.getConfig());
     }
 
     /**
