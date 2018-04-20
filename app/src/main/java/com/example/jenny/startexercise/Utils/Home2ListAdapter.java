@@ -1,0 +1,127 @@
+package com.example.jenny.startexercise.Utils;
+
+import android.content.Context;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
+import com.example.jenny.startexercise.R;
+import com.example.jenny.startexercise.models.Home2item;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.util.List;
+
+/**
+ * Created by jenny on 2018/3/30.
+ */
+
+public class Home2ListAdapter extends ArrayAdapter<Home2item> {
+
+    public interface OnLoadMoreItemsListener{
+        void onLoadMoreItems();
+    }
+    OnLoadMoreItemsListener mOnLoadMoreItemsListener;
+
+    private static final String TAG = "Home2ListAdapter";
+
+    private LayoutInflater mInflater;
+    private int mLayoutResource;
+    private Context mContext;
+    private DatabaseReference mDatabase;
+
+    public Home2ListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Home2item> objects) {
+        super(context, resource, objects);
+        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mLayoutResource = resource;
+        this.mContext = context;
+    }
+
+    static class ViewHolder{
+        SqaureImageView sportIcon;
+        TextView content;
+        TextView date;
+        ImageButton heart;
+    }
+
+
+
+    @NonNull
+    @Override
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
+        final Home2ListAdapter.ViewHolder holder;
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+
+        if(convertView == null){
+            convertView = mInflater.inflate(mLayoutResource, parent, false);
+            holder = new Home2ListAdapter.ViewHolder();
+
+            holder.content = (TextView) convertView.findViewById(R.id.contentTv);
+            holder.sportIcon = (SqaureImageView) convertView.findViewById(R.id.sportIcon);
+            holder.date = (TextView) convertView.findViewById(R.id.dateTv);
+            holder.heart = (ImageButton) convertView.findViewById(R.id.send_heart_btn);
+
+            convertView.setTag(holder);
+
+        }else{
+            holder = (Home2ListAdapter.ViewHolder) convertView.getTag();
+        }
+
+        holder.content.setText(getItem(position).getContent());
+
+        //set the date
+        holder.date.setText(String.valueOf(getItem(position).getDate()));
+
+        //set the icon image
+        final ImageLoader imageLoader = ImageLoader.getInstance();
+        imageLoader.displayImage(getItem(position).getPic_path(), holder.sportIcon);
+
+        holder.heart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Drawable d = getResources().getDrawable(R.drawable.ic_fullheart);
+                holder.heart.setImageResource(R.drawable.ic_fullheart);
+                mDatabase.push()
+                        .setValue("heart");
+            }
+        });
+
+
+        if(reachedEndOfList(position)){
+            loadMoreData();
+        }
+
+        return convertView;
+    }
+
+    private boolean reachedEndOfList(int position){
+        return position == getCount() - 1;
+    }
+
+    private void loadMoreData(){
+
+        try{
+            mOnLoadMoreItemsListener = (Home2ListAdapter.OnLoadMoreItemsListener) getContext();
+        }catch (ClassCastException e){
+            Log.e(TAG, "loadMoreData: ClassCastException: " +e.getMessage() );
+        }
+
+        try{
+            mOnLoadMoreItemsListener.onLoadMoreItems();
+        }catch (NullPointerException e){
+            Log.e(TAG, "loadMoreData: ClassCastException: " +e.getMessage() );
+        }
+    }
+
+
+}

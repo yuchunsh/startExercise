@@ -42,7 +42,7 @@ public class RankActivity extends AppCompatActivity {
     private void setupViewPager(){
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new RankAllFragment()); //index 0
-//        adapter.addFragment(new Home2Fragment());//index 1
+        adapter.addFragment(new RankByExerciseFragment());//index 1
         mViewPager.setAdapter(adapter);
 
 //        adapter.notifyDataSetChanged();
@@ -53,7 +53,7 @@ public class RankActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(mViewPager);
 
         tabLayout.getTabAt(0).setText("總排名");
-//        tabLayout.getTabAt(1).setText("推播");
+        tabLayout.getTabAt(1).setText("運動分類排名");
 
     }
 

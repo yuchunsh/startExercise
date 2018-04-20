@@ -12,9 +12,10 @@ import android.widget.RelativeLayout;
 import com.example.jenny.startexercise.R;
 import com.example.jenny.startexercise.Utils.SectionsPagerAdapter;
 import com.example.jenny.startexercise.Utils.UniversalImageLoader;
+import com.google.firebase.FirebaseApp;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-public class home extends AppCompatActivity {
+public class home extends AppCompatActivity{
 
     private static final String TAG = "HomeActivity";
     private static final int ACTIVITY_NUM = 0;
@@ -30,6 +31,7 @@ public class home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        FirebaseApp.initializeApp(this);
         Log.d(TAG, "onCreate: starting.");
         mViewPager = (ViewPager) findViewById(R.id.viewpager_container);
         mFrameLayout = (FrameLayout) findViewById(R.id.container);
@@ -55,7 +57,7 @@ public class home extends AppCompatActivity {
         adapter.addFragment(new Home2Fragment());//index 1
         mViewPager.setAdapter(adapter);
 
-//        adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
 //        mViewPager.invalidateBullets(adapter);
 
 
@@ -66,7 +68,6 @@ public class home extends AppCompatActivity {
         tabLayout.getTabAt(1).setText("推播");
 
     }
-
 
 
 }

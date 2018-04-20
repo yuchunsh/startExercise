@@ -26,19 +26,41 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="45"
-                android:textSize="73sp"
+                android:textSize="60sp"
                 android:textColor="@color/colorWhite"
                 android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true" />
+                android:layout_marginTop="10dp"/>
+
             <TextView
                 android:id="@+id/minute_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="分鐘"
+                android:text="@string/minute"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp"
                 android:layout_toRightOf="@+id/exerciseSummary"
-                android:layout_centerVertical="true"/>
+                android:layout_marginTop="65dp"/>
+
+            <TextView
+                android:id="@+id/exerciseSec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="25"
+                android:textColor="@color/colorWhite"
+                android:textSize="60sp"
+                android:layout_below="@+id/exerciseSummary"
+                android:layout_centerHorizontal="true"/>
+
+            <TextView
+                android:id="@+id/sec_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/second"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
+                android:layout_toRightOf="@+id/exerciseSec"
+                android:layout_below="@+id/exerciseSummary"
+                android:layout_marginTop="55dp"/>
 
         </RelativeLayout>
 
@@ -79,12 +101,13 @@
             android:layout_toLeftOf="@+id/postBtn"
             android:layout_marginRight="20dp"/>
 
-        <RelativeLayout
+        <ImageView
+            android:id="@+id/equip_img"
             android:layout_width="115dp"
             android:layout_height="115dp"
             android:background="@drawable/radius5_ffb800_btn">
 
-        </RelativeLayout>
+        </ImageView>
 
     </RelativeLayout>
 

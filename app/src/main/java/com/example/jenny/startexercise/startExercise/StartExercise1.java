@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -17,16 +18,23 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.jenny.startexercise.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONObject;
 
 public class StartExercise1 extends AppCompatActivity {
+    private static final String TAG = "StartExercise1";
 
     private String uid = null;
     private String uname = null;
     private String pname = null;
     private String ename = null;
     private boolean firstStartClick = true;
+    private DatabaseReference mDatabase;
 
     private Button startBtn;
     private Button pauseBtn;
@@ -49,6 +57,8 @@ public class StartExercise1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_exercise1);
 
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
         final Intent intent = this.getIntent();
         uid = intent.getStringExtra("uid");
         uname = intent.getStringExtra("uname");
@@ -67,7 +77,8 @@ public class StartExercise1 extends AppCompatActivity {
 
                     String content = uname + "現在正在" + pname + "使用" + ename;
                 if (firstStartClick) {
-                    startTime = SystemClock.uptimeMillis();
+                    firstStartClick = false;
+                    startTime = System.currentTimeMillis();
                     requestQueue = Volley.newRequestQueue(getApplicationContext());
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                             (Request.Method.GET, Url + "?uid=" + uid + "&content=" + content + "&date=" + startTime, new Response.Listener<JSONObject>() {
@@ -99,7 +110,6 @@ public class StartExercise1 extends AppCompatActivity {
                     requestQueue.add(jsonObjectRequest);
 
                 }
-                firstStartClick = false;
             }
         });
         pauseBtn = (Button)findViewById(R.id.pauseBtn);
@@ -155,6 +165,21 @@ public class StartExercise1 extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        ValueEventListener messageListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() != null){
+                    Toast.makeText(StartExercise1.this, "加油！", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(TAG, "onCancelled: " + databaseError.toException());
+            }
+        };
+        mDatabase.addValueEventListener(messageListener);
+
     }
 
 
@@ -172,11 +197,11 @@ public class StartExercise1 extends AppCompatActivity {
             secs = secs % 60;
             int milliseconds = (int)(updatedTime % 1000);
             timerValue.setText(hours + ":" + mins + ":"
-                    + String.format("%02d", secs) + ":"
-                    + String.format("%03d", milliseconds));
+                    + String.format("%02d", secs) );
             customHandler.postDelayed(this,0);
 
         }
     };
+
 
 }

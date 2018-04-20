@@ -84,8 +84,14 @@ public class RankListAdapter extends ArrayAdapter<Rankitem>{
 
         //set the user name, exercise time,
         Log.d(TAG, "getView: getItem(position): " + getItem(position));
+        Long updatedTime = getItem(position).getEnd_time()-getItem(position).getStart_time();
+        int secs = (int)(updatedTime/1000);
+        int mins = secs / 60;
+        int hours = mins / 60;
+        mins = mins % 60;
+        secs = secs % 60;
         holder.username.setText(getItem(position).getUser_name());
-        holder.exerciseTime.setText(String.valueOf(getItem(position).getEnd_time()-getItem(position).getStart_time()));
+        holder.exerciseTime.setText(hours + "時" + mins + "分" + secs + "秒");
         holder.rankNumber.setText(String.valueOf(position + 1));
 //        for (String key : getItem(position).keySet()){
 //            holder.username.setText(key);

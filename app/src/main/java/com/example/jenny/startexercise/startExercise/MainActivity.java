@@ -157,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
                                             intent.putExtra("pname", pname);
                                             intent.putExtra("ename", ename);
                                             startActivity(intent);
+                                            finish();
 
                                         }
 
