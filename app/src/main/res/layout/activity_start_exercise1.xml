@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.jenny.startexercise.startExercise.StartExercise1">
 
     <RelativeLayout
@@ -28,6 +28,19 @@
             android:textAlignment="center"
             android:layout_marginTop="215dp"
             android:layout_centerHorizontal="true"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:layout_centerInParent="true"
+            app:lottie_rawRes="@raw/like"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="false"
+            app:lottie_colorFilter="@color/colorAccent"
+            android:visibility="invisible"/>
+
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"

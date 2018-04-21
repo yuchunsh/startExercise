@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mResultTextView;
     private String uid = "1";
     private String uname = "winnie";
-    private String pname = "gym";
+    private String pname = "體育館重訓室";
     private String ename = null;
 
 

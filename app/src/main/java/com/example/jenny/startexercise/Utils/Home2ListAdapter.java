@@ -14,8 +14,12 @@ import android.widget.TextView;
 
 import com.example.jenny.startexercise.R;
 import com.example.jenny.startexercise.models.Home2item;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
@@ -37,6 +41,8 @@ public class Home2ListAdapter extends ArrayAdapter<Home2item> {
     private int mLayoutResource;
     private Context mContext;
     private DatabaseReference mDatabase;
+    private String uid = "1";
+    private String name = "Jenny";
 
     public Home2ListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Home2item> objects) {
         super(context, resource, objects);
@@ -90,9 +96,29 @@ public class Home2ListAdapter extends ArrayAdapter<Home2item> {
             @Override
             public void onClick(View view) {
 //                Drawable d = getResources().getDrawable(R.drawable.ic_fullheart);
+                Log.d(TAG, "onClick: the heart button is clicked");
                 holder.heart.setImageResource(R.drawable.ic_fullheart);
-                mDatabase.push()
-                        .setValue("heart");
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                Log.d(TAG, "onClick: database" + database);
+                DatabaseReference myRef = database.getReference("message");
+                DatabaseReference sayhi = myRef.child(name);
+
+                sayhi.runTransaction(new Transaction.Handler() {
+                    @Override
+                    public Transaction.Result doTransaction(MutableData mutableData) {
+                        mutableData.setValue(getItem(position).getUid());
+                        return Transaction.success(mutableData);
+                    }
+
+                    @Override
+                    public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+                        if (databaseError != null){
+                            Log.d(TAG, "onComplete: transaction failed:" + databaseError);
+                        }else{
+                            Log.d(TAG, "onComplete: transaction success: " + b + dataSnapshot);
+                        }
+                    }
+                });
             }
         });
 

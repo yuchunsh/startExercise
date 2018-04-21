@@ -12,11 +12,13 @@ public class Home2item implements Parcelable {
     private String content;
     private String date;
     private String icon_path;
+    private String uid;
 
-    public Home2item(String content, String date, String icon_path) {
+    public Home2item(String content, String date, String icon_path, String uid) {
         this.content = content;
         this.date = date;
         this.icon_path = icon_path;
+        this.uid = uid;
     }
 
     public Home2item() {
@@ -28,17 +30,18 @@ public class Home2item implements Parcelable {
         content = in.readString();
         date = in.readString();
         icon_path = in.readString();
+        uid = in.readString();
     }
 
-    public static final Creator<Rankitem> CREATOR = new Creator<Rankitem>() {
+    public static final Creator<Home2item> CREATOR = new Creator<Home2item>() {
         @Override
-        public Rankitem createFromParcel(Parcel in) {
-            return new Rankitem(in);
+        public Home2item createFromParcel(Parcel in) {
+            return new Home2item(in);
         }
 
         @Override
-        public Rankitem[] newArray(int size) {
-            return new Rankitem[size];
+        public Home2item[] newArray(int size) {
+            return new Home2item[size];
         }
     };
 
@@ -49,6 +52,15 @@ public class Home2item implements Parcelable {
     public void setContent(String content) {
         this.content = content;
     }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
 
     public String getDate() {
         return date;
@@ -71,6 +83,7 @@ public class Home2item implements Parcelable {
     public String toString() {
         return "Home2item{" +
                 "content='" + content + '\'' +
+                "uid='" + uid + '\'' +
                 ", start_time='" + date + '\'' +
                 ", icon_path='" + icon_path + '\'' +
                 '}';
@@ -86,5 +99,6 @@ public class Home2item implements Parcelable {
         dest.writeString(content);
         dest.writeString(date);
         dest.writeString(icon_path);
+        dest.writeString(uid);
     }
 }

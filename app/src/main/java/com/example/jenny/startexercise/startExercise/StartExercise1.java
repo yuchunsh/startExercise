@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -18,11 +19,11 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.jenny.startexercise.R;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONObject;
 
@@ -41,6 +42,7 @@ public class StartExercise1 extends AppCompatActivity {
     private Button stopBtn;
     private TextView timerValue;
     private long startTime = 0L;
+    private long sTime = 0L;
     private Handler customHandler = new Handler();
 
     long timeInMilliseconds = 0L;
@@ -67,21 +69,24 @@ public class StartExercise1 extends AppCompatActivity {
 
         timerValue = (TextView)findViewById(R.id.timerValue);
         startBtn = (Button)findViewById(R.id.startBtn);
+        LottieAnimationView animationView = findViewById(R.id.animation_view);
 
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
 
-                    customHandler.postDelayed(updateTimerThread, 0);
+                customHandler.postDelayed(updateTimerThread, 0);
+                startTime = SystemClock.uptimeMillis();
 
-                    String content = uname + "現在正在" + pname + "使用" + ename;
+                String content = uname + " 現在正在" + pname + "使用" + ename;
                 if (firstStartClick) {
                     firstStartClick = false;
-                    startTime = System.currentTimeMillis();
+                    sTime = System.currentTimeMillis();
+                    Log.d(TAG, "onClick: sTime = "+sTime);
                     requestQueue = Volley.newRequestQueue(getApplicationContext());
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                            (Request.Method.GET, Url + "?uid=" + uid + "&content=" + content + "&date=" + startTime, new Response.Listener<JSONObject>() {
+                            (Request.Method.GET, Url + "?uid=" + uid + "&place=" + pname + "&content=" + content + "&date=" + sTime, new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject response) {
                                     Log.d("1111111", "onResponse");
@@ -131,7 +136,7 @@ public class StartExercise1 extends AppCompatActivity {
 
                 requestQueue = Volley.newRequestQueue(getApplicationContext());
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                        (Request.Method.GET, Url2 + "?uid=" + uid + "&ename=" + ename + "&start_time=" + startTime + "&end_time=" + System.currentTimeMillis(), new Response.Listener<JSONObject>() {
+                        (Request.Method.GET, Url2 + "?uid=" + uid + "&ename=" + ename + "&start_time=" + sTime + "&end_time=" + System.currentTimeMillis(), new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
                                 Log.d("1111111", "onResponse");
@@ -165,21 +170,49 @@ public class StartExercise1 extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        ValueEventListener messageListener = new ValueEventListener() {
+
+        //receive firebase encouragement
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+
+        myRef.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getValue() != null){
-                    Toast.makeText(StartExercise1.this, "加油！", Toast.LENGTH_LONG).show();
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                String value = dataSnapshot.getValue(String.class);
+                String key = dataSnapshot.getKey();
+                if (value.equals(uid)){
+                    Toast.makeText(StartExercise1.this, key + "為你加油！", Toast.LENGTH_LONG).show();
+                    animationView.setVisibility(View.VISIBLE);
+                    animationView.playAnimation();
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.d(TAG, "onCancelled: " + databaseError.toException());
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                String value = dataSnapshot.getValue(String.class);
+                String key = dataSnapshot.getKey();
+                if (value.equals(uid)){
+                    Toast.makeText(StartExercise1.this, key + "為你加油！", Toast.LENGTH_LONG).show();
+                    animationView.setVisibility(View.VISIBLE);
+                    animationView.playAnimation();
+                }
             }
-        };
-        mDatabase.addValueEventListener(messageListener);
 
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(TAG, "onCancelled: failed to read value: " + databaseError);
+            }
+        });
     }
 
 

@@ -3,7 +3,6 @@ package com.example.jenny.startexercise.home;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -22,12 +21,8 @@ import com.android.volley.toolbox.Volley;
 import com.example.jenny.startexercise.R;
 import com.example.jenny.startexercise.Utils.Home2ListAdapter;
 import com.example.jenny.startexercise.models.Home2item;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,6 +32,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+
+//import com.google.firebase.FirebaseApp;
 
 //import com.airbnb.lottie.LottieAnimationView;
 
@@ -54,7 +51,7 @@ public class Home2Fragment extends Fragment {
     private Home2ListAdapter mAdapter;
     private String HTTP_URL = "http://140.119.19.36:80/home2.php";
     private String FinalJSonObject;
-    private FirebaseAuth mAuth;
+//    private FirebaseAuth mAuth;
     private Boolean isUser = Boolean.FALSE;
 
 
@@ -64,61 +61,35 @@ public class Home2Fragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        FirebaseApp.initializeApp(getContext());
         View view = inflater.inflate(R.layout.fragment_home2, container, false);
         View rl = inflater.inflate(R.layout.layout_home2_listitem, container, false);
         mListView = (ListView) view.findViewById(R.id.home2_lv);
         mHome2items = new ArrayList<>();
-        mAuth = FirebaseAuth.getInstance();
-        mAuth.signInAnonymously().addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    Log.d(TAG, "onComplete: Anonymous sign in success!");
-                    isUser = Boolean.TRUE;
-//                    Toast.makeText(getActivity(),"匿名登入成功 uid:\n" + mAuth.getCurrentUser().getUid(),Toast.LENGTH_LONG).show();
-                }else{
-                    Toast.makeText(getActivity(),"匿名登入失敗",Toast.LENGTH_LONG).show();         }
-            }
-        });
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+
+        // Read from the database
+//        myRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                // This method is called once with the initial value and again
+//                // whenever data at this location is updated.
+//                String value = dataSnapshot.getValue(String.class);
+//                Toast.makeText(getContext(), value, Toast.LENGTH_LONG).show();
+//                Log.d(TAG, "Value is: " + value);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError error) {
+//                // Failed to read value
+//                Log.w(TAG, "Failed to read value.", error.toException());
+//            }
+//        });
+
         getHome2item();
-
-//        animationView = view.findViewById(R.id.animation_view);
-
-
-//        heart = (Button) rl.findViewById(R.id.send_heart_btn);
-//        heart.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Log.d(TAG, "onClick: heart onclick");
-////                Drawable d = getResources().getDrawable(R.drawable.ic_fullheart);
-////                heart.setBackground(d);
-//                sendMessage(view);
-//            }
-//        });
-//        heart.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Log.d(TAG, "onClick: heart onclick");
-//                Drawable d = getResources().getDrawable(R.drawable.ic_fullheart);
-//                heart.setBackground(d);
-//                sendMessage(view);
-//            }
-//        });
-
 
         return view;
     }
-
-    // [START on_start_check_user]
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        updateUI(currentUser);
-    }
-    // [END on_start_check_user]
 
     private void getHome2item(){
         Log.d(TAG, "getHome2item: getting home2item");
@@ -202,6 +173,7 @@ public class Home2Fragment extends Fragment {
                             home2item.setContent(jsonObject.getString("content"));
                             home2item.setDate(convertTime(jsonObject.getString("date")));
                             home2item.setPic_path(jsonObject.getString("icon_url"));
+                            home2item.setUid(jsonObject.getString("uid"));
 
 
                             // Adding subject list object into CustomSubjectNamesList.
