@@ -29,21 +29,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Rank.RankActivity"></activity>
-        <service
-            android:name=".Utils.MyFirebaseMessagingService">
+        <activity android:name=".Rank.RankActivity" />
+
+        <service android:name=".Utils.MyFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service
-            android:name=".Utils.MyFirebaseInstanceIDService">
+        <service android:name=".Utils.MyFirebaseInstanceIDService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
-
+        <activity android:name=".Xfile.XfileActivity"></activity>
     </application>
 
 </manifest>

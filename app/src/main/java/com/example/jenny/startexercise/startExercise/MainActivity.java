@@ -20,6 +20,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.jenny.startexercise.R;
 import com.example.jenny.startexercise.Rank.RankActivity;
 import com.example.jenny.startexercise.Share.ShareActivity;
+import com.example.jenny.startexercise.Xfile.XfileActivity;
 import com.example.jenny.startexercise.barcode.BarcodeCaptureActivity;
 import com.example.jenny.startexercise.home.home;
 import com.google.android.gms.common.api.CommonStatusCodes;
@@ -84,6 +85,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, RankActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button xfileBtn = (Button) findViewById(R.id.xfileBtn);
+        xfileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, XfileActivity.class);
                 startActivity(intent);
             }
         });

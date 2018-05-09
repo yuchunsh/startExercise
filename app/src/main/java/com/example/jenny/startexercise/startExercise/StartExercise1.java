@@ -1,6 +1,7 @@
 package com.example.jenny.startexercise.startExercise;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -36,6 +37,7 @@ public class StartExercise1 extends AppCompatActivity {
     private String ename = null;
     private boolean firstStartClick = true;
     private DatabaseReference mDatabase;
+    MediaPlayer xray;
 
     private Button startBtn;
     private Button pauseBtn;
@@ -60,6 +62,7 @@ public class StartExercise1 extends AppCompatActivity {
         setContentView(R.layout.activity_start_exercise1);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
 
         final Intent intent = this.getIntent();
         uid = intent.getStringExtra("uid");
@@ -141,23 +144,18 @@ public class StartExercise1 extends AppCompatActivity {
                             public void onResponse(JSONObject response) {
                                 Log.d("1111111", "onResponse");
 
-
                             }
 
 
                         }, new Response.ErrorListener() {
 
-
                             @Override
-
 
                             public void onErrorResponse(VolleyError error) {
 //                                if (error.getMessage() != null)
 //                                    Log.d("11111111",error.getMessage());
                                 VolleyLog.e("error", error.getMessage());
 //
-
-
                             }
 
                         });
@@ -175,15 +173,41 @@ public class StartExercise1 extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("message");
 
+        //before adding Listener, delete the data in the database first
+        myRef.removeValue();
+
+        //add childeventListener to check if anyone sent encouragement to the user
         myRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 String value = dataSnapshot.getValue(String.class);
                 String key = dataSnapshot.getKey();
                 if (value.equals(uid)){
-                    Toast.makeText(StartExercise1.this, key + "為你加油！", Toast.LENGTH_LONG).show();
+                    Toast.makeText(StartExercise1.this, key + "向你發送X光波！", Toast.LENGTH_LONG).show();
                     animationView.setVisibility(View.VISIBLE);
                     animationView.playAnimation();
+                    xray = MediaPlayer.create(StartExercise1.this, R.raw.magic_wand);
+                    xray.start();
+                    xray.setLooping(true);
+                    xray.setVolume(100, 100);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(4000);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        animationView.setVisibility(View.INVISIBLE);
+                                        xray.stop();
+                                    }
+                                });
+                            }catch (Exception e){
+
+                            }
+
+                        }
+                    }).start();
                 }
             }
 
@@ -192,9 +216,31 @@ public class StartExercise1 extends AppCompatActivity {
                 String value = dataSnapshot.getValue(String.class);
                 String key = dataSnapshot.getKey();
                 if (value.equals(uid)){
-                    Toast.makeText(StartExercise1.this, key + "為你加油！", Toast.LENGTH_LONG).show();
+                    Toast.makeText(StartExercise1.this, key + "向你發送X光波！", Toast.LENGTH_LONG).show();
                     animationView.setVisibility(View.VISIBLE);
                     animationView.playAnimation();
+                    xray = MediaPlayer.create(StartExercise1.this, R.raw.magic_wand);
+                    xray.start();
+                    xray.setLooping(true);
+                    xray.setVolume(100, 100);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(4000);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        animationView.setVisibility(View.INVISIBLE);
+                                        xray.stop();
+                                    }
+                                });
+                            }catch (Exception e){
+
+                            }
+
+                        }
+                    }).start();
                 }
             }
 

@@ -31,14 +31,13 @@
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animation_view"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
             android:scaleType="centerCrop"
             android:layout_centerInParent="true"
-            app:lottie_rawRes="@raw/like"
+            app:lottie_rawRes="@raw/twitterheart"
             app:lottie_loop="true"
             app:lottie_autoPlay="false"
-            app:lottie_colorFilter="@color/colorAccent"
             android:visibility="invisible"/>
 
     </RelativeLayout>

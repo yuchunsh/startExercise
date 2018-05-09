@@ -174,6 +174,7 @@ public class Home2Fragment extends Fragment {
                             home2item.setDate(convertTime(jsonObject.getString("date")));
                             home2item.setPic_path(jsonObject.getString("icon_url"));
                             home2item.setUid(jsonObject.getString("uid"));
+                            home2item.setLongdate(Long.parseLong(jsonObject.getString("date")));
 
 
                             // Adding subject list object into CustomSubjectNamesList.
@@ -204,7 +205,8 @@ public class Home2Fragment extends Fragment {
             Collections.sort(mHome2items, new Comparator<Home2item>() {
                 @Override
                 public int compare(Home2item o1, Home2item o2) {
-                    return o2.getDate().compareTo(o1.getDate());
+
+                    return o2.getLongdate().compareTo(o1.getLongdate());
                 }
             });
 

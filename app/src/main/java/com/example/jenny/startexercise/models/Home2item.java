@@ -13,12 +13,14 @@ public class Home2item implements Parcelable {
     private String date;
     private String icon_path;
     private String uid;
+    private Long longdate;
 
-    public Home2item(String content, String date, String icon_path, String uid) {
+    public Home2item(String content, String date, String icon_path, String uid, Long longdate) {
         this.content = content;
         this.date = date;
         this.icon_path = icon_path;
         this.uid = uid;
+        this.longdate = longdate;
     }
 
     public Home2item() {
@@ -31,6 +33,7 @@ public class Home2item implements Parcelable {
         date = in.readString();
         icon_path = in.readString();
         uid = in.readString();
+        longdate = in.readLong();
     }
 
     public static final Creator<Home2item> CREATOR = new Creator<Home2item>() {
@@ -78,6 +81,13 @@ public class Home2item implements Parcelable {
         this.icon_path = icon_path;
     }
 
+    public Long getLongdate() {
+        return longdate;
+    }
+
+    public void setLongdate(Long longdate) {
+        this.longdate = longdate;
+    }
 
     @Override
     public String toString() {

@@ -62,6 +62,15 @@
         android:background="@color/colorAccent"
         android:textColor="@color/colorWhite"
         android:layout_marginBottom="40dp"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/xfileBtn"
+        android:background="@color/colorAccent"
+        android:textColor="@color/colorWhite"
+        android:text="x-file"
+        android:layout_above="@+id/rankBtn"
+        android:layout_marginBottom="10dp"/>
 
 
 </RelativeLayout>
